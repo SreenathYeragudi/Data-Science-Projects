@@ -1,0 +1,393 @@
+---
+title: "Final Project"
+author: "Sreenath Yeragudi"
+format: html
+editor: visual
+---
+
+# **Research Question:**
+
+# Do social factors disproportionately affect certain groups after being frisked and arrested versus being frisked and not being arrested?
+
+```{r}
+sqf <- read.csv("sqf.csv", stringsAsFactors = T)
+```
+
+Create Subsets:
+
+AMERICAN INDIAN/ALASKAN NATIVE, ASIAN /\
+PACIFIC ISLANDER, BLACK, BLACK HISPANIC, WHITE, WHITE\
+HISPANIC
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+## **FRISKED AND ARRESTED**
+
+```{r}
+tot<-table(sqf$frisked=="Y" & sqf$arstmade=="Y")["TRUE"]
+tot
+#Native Frisked and arrested
+native<-table(sqf$race=="AMERICAN INDIAN/ALASKAN NATIVE" & sqf$frisked=="Y" & sqf$arstmade=="Y")["TRUE"]
+#Asian Frisked and arrested
+asian<-table(sqf$race=="ASIAN /PACIFIC ISLANDER" & sqf$frisked=="Y" & sqf$arstmade=="Y")["TRUE"]
+# Black Frisked and arrested
+black<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y")["TRUE"]
+# Black Hispanic Frisked and arrested
+blackHISP<-table(sqf$race=="BLACK HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="Y")["TRUE"]
+# White Frisked and arrested
+white<-table(sqf$race=="WHITE" & sqf$frisked=="Y" & sqf$arstmade=="Y")["TRUE"]
+# White Hispanic Frisked and arrested
+whiteHISP<-table(sqf$race=="WHITE HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="Y")["TRUE"]
+
+
+print("Number of Native Frisked and Arrested")
+N<-native
+N
+print("Number of Asian Frisked and Arrested")
+A<-asian
+A
+print("Number of Black Frisked and Arrested")
+B<-black
+B
+print("Number of Black Hispanic Frisked and Arrested")
+BH<-blackHISP
+BH
+print("Number of White Frisked and Arrested")
+W<-white
+W
+print("Number of White Hispanic Frisked and Arrested")
+WH<-whiteHISP
+WH
+
+diff_store<-c(N,A,B,BH,W,WH)
+names(diff_store)<-c("Native","Asian","Black","Black Hispanic","White","White Hispanic")
+
+
+
+
+
+```
+
+Arrested after being frisked:
+
+TOTAL: 36441
+
+Black : 18635
+
+White Hispanic: 9221
+
+White: 3664
+
+Native:126
+
+Asian:0
+
+Black Hispanic: 9221
+
+```{r}
+barplot(diff_store, main = "Number being Arrested after being Frisked by race",cex.main=.75, ylim = c(0,40000),ylab="Number of People",cex.lab=.5)
+text(x=b,y=diff_store+1000,labels=diff_store)
+```
+
+### **Finding:**
+
+Out of 36441 people who where frisked and arrested, around 50% or 18635 where Black followed by 9,221 being White Hispanic, 3,664 being White, 2,659 being Black Hispanic, and 126 being Native and 0 being Asian
+
+Showing that Blacks are significantly more likely (6x compared to Whites) to be frisked and arrested in comparison to other races such as the Whites
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+## **FRISKED AND NOT ARRESTED**
+
+```{r}
+tot<-table(sqf$frisked=="Y" & sqf$arstmade=="N")["TRUE"]
+tot
+native<-table(sqf$race=="AMERICAN INDIAN/ALASKAN NATIVE" & sqf$frisked=="Y" & sqf$arstmade=="N")["TRUE"]
+asian<-table(sqf$race=="ASIAN /PACIFIC ISLANDER" & sqf$frisked=="Y" & sqf$arstmade=="N")["TRUE"]
+black<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="N")["TRUE"]
+blackHISP<-table(sqf$race=="BLACK HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="N")["TRUE"]
+white<-table(sqf$race=="WHITE" & sqf$frisked=="Y" & sqf$arstmade=="N")["TRUE"]
+whiteHISP<-table(sqf$race=="WHITE HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="N")["TRUE"]
+
+
+print("Number of Native Frisked and Arrested")
+N<-native
+N
+print("Number of Asian Frisked and Arrested")
+A<-asian
+A
+print("Number of Black Frisked and Arrested")
+B<-black
+B
+print("Number of Black Hispanic Frisked and Arrested")
+BH<-blackHISP
+BH
+print("Number of White Frisked and Arrested")
+W<-white
+W
+print("Number of White Hispanic Frisked and Arrested")
+WH<-whiteHISP
+WH
+
+diff_store<-c(N,A,B,BH,W,WH)
+names(diff_store)<-c("Native","Asian","Black","Black Hispanic","White","White Hispanic")
+
+
+
+```
+
+### **Finding:**
+
+Total : 351 782
+
+Native: 1314
+
+Asian: 0
+
+Black: 188176
+
+Black Hispanic: 26240
+
+White: 24144
+
+White Hispanic: 91597
+
+We can see that Black people lead this metric aswell as not being arrested after being frisked at almost 50% again at 188,176 people this time almost (7x ) more people than white people.
+
+```{r}
+barplot(diff_store, main = "Number of People Frisked and Not arrested",cex.main=.75, ylim = c(0,300000),ylab="Number of People",cex.lab=.5)
+text(x=b,y=diff_store+8000,labels=diff_store)
+
+```
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+## **FRISKED IN GENERAL**
+
+```{r}
+tot<-table(sqf$frisked=="Y")["TRUE"]
+print(" TOTAL Number of Frisked")
+tot
+native<-table(sqf$race=="AMERICAN INDIAN/ALASKAN NATIVE" & sqf$frisked=="Y")["TRUE"]
+asian<-table(sqf$race=="ASIAN /PACIFIC ISLANDER" & sqf$frisked=="Y")["TRUE"]
+black<-table(sqf$race=="BLACK" & sqf$frisked=="Y")["TRUE"]
+blackHISP<-table(sqf$race=="BLACK HISPANIC" & sqf$frisked=="Y")["TRUE"]
+white<-table(sqf$race=="WHITE" & sqf$frisked=="Y")["TRUE"]
+whiteHISP<-table(sqf$race=="WHITE HISPANIC" & sqf$frisked=="Y")["TRUE"]
+
+
+print("Number of Native Frisked")
+N<-native
+N
+print("Number of Asian Frisked ")
+A<-asian
+A
+print("Number of Black Frisked ")
+B<-black
+B
+print("Number of Black Hispanic Frisked ")
+BH<-blackHISP
+BH
+print("Number of White Frisked ")
+W<-white
+W
+print("Number of White Hispanic Frisked ")
+WH<-whiteHISP
+WH
+
+
+diff_store<-c(N,A,B,BH,W,WH)
+names(diff_store)<-c("Native","Asian","Black","Black Hisp","White","White Hisp")
+
+```
+
+```{r}
+barplot(diff_store, main = "Number of People Frisked ",cex.main=.75, ylim = c(0,300000),ylab="Number of People",cex.lab=.5)
+text(x=b,y=diff_store+8000,labels=diff_store)
+```
+
+# **Result:**
+
+Since the data prior didn't reveal much, it was important to look at the total number of people being frisked and seeing if that revealed any pertinent information.
+
+This information showed that almost 53% of those who stopped and frisked where Black where as only 7% where White. This shows that Blacks are 7x more likely to be stopped and frisked at all compared to Whites
+
+Though the information above showed that the most arrested after frisking where Black and most not arrested after frisking where Black, this data reveals something unique in that minorities such as Blacks and White Hispanics are stopped and frisked at higher amounts leading to more being arrested in all.
+
+\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~
+
+# **What about if Gender took a role as well?**
+
+## Males:
+
+```{r}
+tot<-table(sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE")["TRUE"]
+print("Total Number of men Frisked and Arrested")
+tot
+#Native Frisked and arrested
+native<-table(sqf$race=="AMERICAN INDIAN/ALASKAN NATIVE" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE")["TRUE"]
+#Asian Frisked and arrested
+asian<-table(sqf$race=="ASIAN /PACIFIC ISLANDER" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE")["TRUE"]
+# Black Frisked and arrested
+black<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE")["TRUE"]
+# Black Hispanic Frisked and arrested
+blackHISP<-table(sqf$race=="BLACK HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="Y"& sqf$sex=="MALE")["TRUE"]
+# White Frisked and arrested
+white<-table(sqf$race=="WHITE" & sqf$frisked=="Y" & sqf$arstmade=="Y"& sqf$sex=="MALE")["TRUE"]
+# White Hispanic Frisked and arrested
+whiteHISP<-table(sqf$race=="WHITE HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="Y"& sqf$sex=="MALE")["TRUE"]
+
+
+print("Number of Native Frisked and Arrested MALE")
+N<-native
+N
+print("Number of Asian Frisked and Arrested MALE")
+A<-asian
+A
+print("Number of Black Frisked and Arrested MALE")
+B<-black
+B
+print("Number of Black Hispanic Frisked and Arrested MALE")
+BH<-blackHISP
+BH
+print("Number of White Frisked and Arrested MALE")
+W<-white
+W
+print("Number of White Hispanic Frisked and Arrested MALE")
+WH<-whiteHISP
+WH
+
+diff_store<-c(N,A,B,BH,W,WH)
+names(diff_store)<-c("Native","Asian","Black","Black Hisp","White","White Hisp")
+```
+
+```{r}
+barplot(diff_store, main = "Number being Arrested after being Frisked by race and MALE",cex.main=.75, ylim = c(0,30000),ylab="Number of People",cex.lab=.5)
+text(x=b,y=diff_store+1000,labels=diff_store)
+```
+
+### Findings:
+
+From this chart and data we can see that almost 51% of all the men who where frisked and arrested where Black where as 9% where White. This shows that Black men are 5.6 times more likely to be frisked and arrested compared to White Males
+
+## Females:
+
+```{r}
+tot<-table(sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="FEMALE")["TRUE"]
+print("Total Number of women Frisked and Arrested")
+tot
+#Native Frisked and arrested
+native<-table(sqf$race=="AMERICAN INDIAN/ALASKAN NATIVE" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="FEMALE")["TRUE"]
+#Asian Frisked and arrested
+asian<-table(sqf$race=="ASIAN /PACIFIC ISLANDER" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="FEMALE")["TRUE"]
+# Black Frisked and arrested
+black<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="FEMALE")["TRUE"]
+# Black Hispanic Frisked and arrested
+blackHISP<-table(sqf$race=="BLACK HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="Y"& sqf$sex=="FEMALE")["TRUE"]
+# White Frisked and arrested
+white<-table(sqf$race=="WHITE" & sqf$frisked=="Y" & sqf$arstmade=="Y"& sqf$sex=="FEMALE")["TRUE"]
+# White Hispanic Frisked and arrested
+whiteHISP<-table(sqf$race=="WHITE HISPANIC" & sqf$frisked=="Y" & sqf$arstmade=="Y"& sqf$sex=="FEMALE")["TRUE"]
+
+
+print("Number of Native Frisked and Arrested FEMALE")
+N<-native
+N
+print("Number of Asian Frisked and Arrested FEMALE")
+A<-asian
+A
+print("Number of Black Frisked and Arrested FEMALE")
+B<-black
+B
+print("Number of Black Hispanic Frisked and Arrested FEMALE")
+BH<-blackHISP
+BH
+print("Number of White Frisked and Arrested FEMALE")
+W<-white
+W
+print("Number of White Hispanic Frisked and Arrested FEMALE")
+WH<-whiteHISP
+WH
+
+diff_store<-c(N,A,B,BH,W,WH)
+names(diff_store)<-c("Native","Asian","Black","Black Hisp","White","White Hisp")
+```
+
+```{r}
+barplot(diff_store, main = "Number being Arrested after being Frisked by race and FEMALE",cex.main=.75, ylim = c(0,3000),ylab="Number of People",cex.lab=.5)
+text(x=b,y=diff_store+100,labels=diff_store)
+
+```
+
+### Findings:
+
+From this data we can see that 52% of those females who where frisked and arrested where Black compared to 12% who where White. From this we could see that Black Women where 4x more likely to get frisked and arrested compared to White women
+
+## Final Findings:
+
+After comparing both sets of data we found this:
+
+***Men:***
+
+Total *Men* Frisked and Arrested : 33030
+
+Total *Black* Men Frisked and Arrested: 16995
+
+Total *White* Men Frisked and Arrested: 3290
+
+***Women:***
+
+Total *Women* Frisked and Arrested : 2997
+
+Total *Black* Women Frisked and Arrested: 1572
+
+Total *White* Women Frisked and Arrested: 363
+
+From this we can see that Men are 11x more likely to be stopped and frisked and arrested compared to women. On top of that, there are more black men arrested and frisked than there are in total of all women, about 5.6 x more. Black men seamed to be the most affected by these policies and it seems to indicated that these social factors do show a larger disadvantage to certain groups.
+
+\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~
+
+# **What about specifically the age group in Black Men?**
+
+```{r}
+black<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE")["TRUE"]
+print("Total:")
+black
+black_18_30<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE" & sqf$age>=18 & sqf$age<=30)["TRUE"]
+print("18-30:")
+black_18_30
+black_31_50<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE" &sqf$age>=31 & sqf$age<=50)["TRUE"]
+print("31-50:")
+black_31_50
+black_51_70<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE" &sqf$age>=51 & sqf$age<=70)["TRUE"]
+print("50-71:")
+black_51_70
+black_71_100<-table(sqf$race=="BLACK" & sqf$frisked=="Y" & sqf$arstmade=="Y" & sqf$sex=="MALE" & sqf$age>=71 & sqf$age<=100)["TRUE"]
+print("71-100:")
+black_71_100
+
+diff_store<-c(black,black_18_30,black_31_50,black_51_70,black_71_100)
+names(diff_store)<-c("Total","18-30","31-50","51-70","71-100")
+```
+
+```{r}
+barplot(diff_store, main = "Number Black Men arrested based on age",cex.main=.75, ylim = c(0,20000),ylab="Number of People",cex.lab=.5)
+text(x=b,y=diff_store+1000,labels=diff_store)
+
+```
+
+### Findings:
+
+The data shows that out of each age bracket of Black Men, 18-30 year olds are those who are affected most by the stop and frisk issue at 8218, almost 50% of them.
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+# Final Findings:
+
+After completing our analysis of this question we have come to certain realizations. Social factors such as race,gender, and age to seem to be a major factor when disproportionately favoring one group over another. From our initial findings from the data, we found that around 50% of those frisked and arrested where Black while also 50% of those frisked and not arrested where also Black. This caused us to question as to how so? We then found that of the total amount who where stopped frisked, 50% of those people where Black compared to only 7% being White showing a huge disparity in the number of people from a certain group being treated in a certain way.
+
+To understand this more, we decided to see the information pertaining to gender and see the results. We found that among men, 51 % where Black Males vs that of 9% being White Males, showing Black Males to be affected by this policy 5.6x more than that of White Males. Among females, Black Females where 52% of the cases, where as white females where only 12% showing once again the disproportionate rates and differences from the stop and frisk policy. Among both genders, we where able to even conclude that Black Men where 5.6x more likely to be frisked and arrested then all the women who were frisked and arrested, showing some alarming statistics.
+
+Understanding that Black Men where the most disproportionally affected by this policy we wanted to see which age range was affected on top of those statistics. We found that among black men, the age group of 18-31 made up 50% of those who where frisked and arrested showing that larger swaths of young black men would be arrested and frisked in larger quantities.
+
+Overall, from these findings, it is easy to see that social factors such as race,age, and sex have a major affect on the stop and frisk policy affecting certain groups more drastically than others.
